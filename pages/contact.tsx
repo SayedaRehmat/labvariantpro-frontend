@@ -1,12 +1,14 @@
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Contact() {
   return (
     <>
-      <div className="max-w-3xl mx-auto px-6 py-16">
-        <h1 className="text-2xl font-bold">Contact</h1>
-        <p className="text-gray-600 mt-2">For sales, partnerships, or technical support, reach us at <a className="underline" href="mailto:bc190408541@vu.edu.pk">bc190408541@vu.edu.pk</a>.</p>
-      </div>
+      <Navbar />
+      <main className="max-w-3xl mx-auto px-6 py-12">
+        <h1 className="text-2xl font-bold text-primary mb-4">Contact</h1>
+        <p className="text-gray-600">For sales, partnerships or support please email <a href="mailto:contact@labvariantpro.com" className="text-primary underline">contact@labvariantpro.com</a>.</p>
+      </main>
       <Footer />
     </>
   );
