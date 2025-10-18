@@ -1,4 +1,4 @@
-// pages/login.tsx
+// pages/signup.tsx
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
@@ -6,26 +6,26 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { toast } from "react-hot-toast";
 
-export default function Login() {
+export default function Signup() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: any) => {
+  const handleSignup = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signUp({ email, password });
     setLoading(false);
 
     if (error) toast.error(error.message);
     else {
-      toast.success("Welcome back!");
+      toast.success("Account created! Check your email to verify.");
       router.push("/dashboard");
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleSignup = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/dashboard` },
@@ -38,9 +38,11 @@ export default function Login() {
       <Navbar />
       <main className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-center mb-6">Welcome Back</h2>
+          <h2 className="text-2xl font-bold text-center mb-6">
+            Create Your Account
+          </h2>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-4">
             <input
               type="email"
               placeholder="Email"
@@ -62,14 +64,14 @@ export default function Login() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
           </form>
 
           <div className="my-6 text-center text-gray-500">or</div>
 
           <button
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignup}
             className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition"
           >
             <img src="/google.svg" alt="Google" className="w-5 h-5" />
@@ -77,9 +79,9 @@ export default function Login() {
           </button>
 
           <p className="text-sm text-center mt-4 text-gray-600">
-            Don’t have an account?{" "}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-600 hover:underline">
+              Login
             </a>
           </p>
         </div>
